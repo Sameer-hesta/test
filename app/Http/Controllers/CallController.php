@@ -107,6 +107,7 @@ class CallController extends Controller
                         'f_no' => $f_number,
                     ])->update(['status' => 1]);
                 }
+                
                 if(count($calls) == 1){
                     event(new LastLeave($channel_name,$h_name, $f_number, $b_number, $b_message));
                 }else{
