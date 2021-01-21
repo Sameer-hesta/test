@@ -28,6 +28,9 @@ class CallController extends Controller
             $h_name = $request->hna;
             $f_number = $request->fno;
             $b_number = $request->bno;
+            $r_no = $request->rno;
+            $b_type = $request->b_type??"Bad";
+
             $b_message = "Bad No ".$request->bno." is calling";
             $call = $this->call->where([
                 'h_name' => $h_name,
@@ -43,7 +46,9 @@ class CallController extends Controller
                             'user_id' => $user->id,
                             'h_name' => $h_name,
                             'b_no' => $b_number,
+                            'r_no' => $r_no,
                             'f_no' => $f_number,
+                            'b_type' => $b_type,
                         ]);
                     
                     $channel_name = "home".$user->id;
