@@ -64,7 +64,7 @@ class CallController extends Controller
                     return response()->json([
                         "data" => null,
                         "status" => 400,
-                        "er\or" => false,
+                        "error" => true,
                         "message" => "User not found."
                     ], 400);
                 }
@@ -72,7 +72,7 @@ class CallController extends Controller
                 return response()->json([
                     "data" => null,
                     "status" => 400,
-                    "er\or" => false,
+                    "error" => true,
                     "message" => "Already done."
                 ], 400);
             }
@@ -81,7 +81,7 @@ class CallController extends Controller
 
         }catch(\Exception $e){
             return response()->json([
-                "data" => $e,
+                "data" => $e->getMessage(),
                 "status" => 500,
                 "error" => true,
                 "message" => "Something went wrong"
