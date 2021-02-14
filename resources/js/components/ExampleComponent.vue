@@ -1,14 +1,10 @@
 <template>
     <div class="container-fluid">
-        <div class="row justify-content-left">
-            <div class="col-md-3">
-                <div id="accordion">
-    
-                </div>
-            </div>
+        <div class="row justify-content-left" id="accordion">
+            
         </div>
         <audio id="myAudio">
-            <source src="audio.mp3" type="audio/mpeg" allow="autoplay">
+            <source src="audio.mp3" type="audio/mpeg" >
             Your browser does not support the audio element.
         </audio>
     </div>
@@ -21,7 +17,7 @@
             console.log("user",userId);
             Echo.channel('home'+userId)
             .listen('NewMessage', (e)=>{
-                console.log(e);
+                console.log("Req=>", e.request.bno?e.request.bno:'');
                 const container = document.getElementById('accordion');
 
                     const card = document.createElement('div');
@@ -29,9 +25,9 @@
 
                     // Construct card content
                     const content = `
-                        <div id="card-${e.h_name}-${e.f_number}-${e.b_number}">                        
+                        <div class="col-md-3" id="card-${e.request.hna}-${e.request.fno}${e.request.rno?e.request.rno:''}${e.request.r_type?e.request.r_type:''}${e.request.bno?e.request.bno:''}${e.request.b_type?e.request.b_type:''}">                        
                             <div class="card">
-                                <div class="card-header" id="card-deader-${e.h_name}-${e.f_number}-${e.b_number}">Patient Calling</div>
+                                <div class="card-header" id="card-header-${e.request.hna}-${e.request.fno}${e.request.rno?e.request.rno:''}${e.request.r_type?e.request.r_type:''}${e.request.bno?e.request.bno:''}${e.request.b_type?e.request.b_type:''}">Patient Calling</div>
                                 <h1> ${e.b_message} </h1>
                             </div>
                             </br>
@@ -42,35 +38,71 @@
                     container.innerHTML += content;
                     
                     var x = document.getElementById("myAudio");
-                    console.log("X =>",x.paused);
+                    console.log("X =>",x);
                     x.addEventListener('ended', function() {
-                        this.currentTime = 0;
+                        this.currentTime = 1;
+                        this.volume = 1;
                         this.play();
                     }, false);
                     
                     x.play();
-                    console.log(e.b_number, 'joined', x.played);
+                    console.log(e.request.fno, 'joined', x);
             });
             
             Echo.channel('home'+userId)
             .listen('Reset', (e)=>{
-                console.log(e.h_name);
-                 var myobj = document.getElementById("card-"+e.h_name+"-"+e.f_number+"-"+e.b_number);
+                var bno = '';
+                var rno = '';
+                var r_type = '';
+                var b_type = '';
+                if(e.request.rno != undefined){
+                    rno = e.request.rno
+                }
+                if(e.request.r_type != undefined){
+                    r_type = e.request.r_type
+                }
+                if(e.request.bno != undefined){
+                    bno = e.request.bno
+                }
+                if(e.request.b_type != undefined){
+                    b_type = e.request.b_type
+                }
+                console.log("Req Can", "card-"+e.request.hna+"-"+e.request.fno+rno+r_type+bno+b_type);
+
+                 var myobj = document.getElementById("card-"+e.request.hna+"-"+e.request.fno+rno+r_type+bno+b_type);
                     console.log(myobj);
                     myobj.remove();
-                    console.log(e.b_number, 'leaved');
+                    console.log('leaved');
             });
 
             Echo.channel('home'+userId)
             .listen('LastLeave', (e)=>{
-                console.log(e.h_name);
-                 var myobj = document.getElementById("card-"+e.h_name+"-"+e.f_number+"-"+e.b_number);
+                var bno = '';
+                var rno = '';
+                var r_type = '';
+                var b_type = '';
+                if(e.request.rno != undefined){
+                    rno = e.request.rno
+                }
+                if(e.request.r_type != undefined){
+                    r_type = e.request.r_type
+                }
+                if(e.request.bno != undefined){
+                    bno = e.request.bno
+                }
+                if(e.request.b_type != undefined){
+                    b_type = e.request.b_type
+                }
+                console.log("Last Can", "card-"+e.request.hna+"-"+e.request.fno+rno+r_type+bno+b_type);
+                
+                 var myobj = document.getElementById("card-"+e.request.hna+"-"+e.request.fno+rno+r_type+bno+b_type);
                     console.log(myobj);
                     myobj.remove();
                     var x = document.getElementById("myAudio");
+                    console.log("x =>y", x);
                     x.pause();
 
-                    console.log(e.b_number, 'Last leaved');
+                    console.log(e.request.fno, 'Last leaved');
             });
 
             Echo.join(`home`+userId)

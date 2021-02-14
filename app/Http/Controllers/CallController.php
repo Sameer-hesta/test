@@ -31,8 +31,9 @@ class CallController extends Controller
             $b_type = $request->b_type;
             $r_no = $request->rno;
             $r_type = $request->r_type;
+            $symbol = $request->symbol;
 
-            $b_message = $r_type.' '.($r_no?$r_no:'').(($r_no?'':' ').$request->bno?$request->bno.' ':'').($b_type?$b_type:'');
+            $b_message = $r_type.($symbol?$symbol:'&#10174;').' '.($r_no?$r_no:'').(($r_no?'':' ').$request->bno?$request->bno.' ':'').($b_type?$b_type:'');
             
             $call = $this->call->where([
                 'h_name' => $h_name,
@@ -58,7 +59,7 @@ class CallController extends Controller
                         ]);
                     
                     $channel_name = "home".$user->id;
-                   event(new NewMessage($channel_name, $h_name, $f_number, $b_number, $b_message));
+                   event(new NewMessage($channel_name, $request->all(), $b_message));
                    
                    return response()->json([
                        "data" => null,
@@ -103,7 +104,8 @@ class CallController extends Controller
             $b_type = $request->b_type;
             $r_no = $request->rno;
             $r_type = $request->r_type;
-            $b_message = $r_type.' '.($r_no?$r_no.' ':'').($request->bno?$request->bno.' ':'').($b_type?$b_type:'');
+            $symbol = $request->symbol;
+            $b_message = $r_type.($symbol?$symbol:'&#10174;').' '.($r_no?$r_no.' ':'').($request->bno?$request->bno.' ':'').($b_type?$b_type:'');
 
             $calls = $this->call->where([
                 'h_name' => $h_name,
@@ -125,9 +127,9 @@ class CallController extends Controller
                 }
                 
                 if(count($calls) == 1){
-                    event(new LastLeave($channel_name,$h_name, $f_number, $b_number, $b_message));
+                    event(new LastLeave($channel_name, $request->all(),$b_message));
                 }else{
-                    event(new Reset($channel_name,$h_name, $f_number, $b_number, $b_message));
+                    event(new Reset($channel_name, $request->all(), $b_message));
                 }
                 return response()->json([
                     "data" => null,

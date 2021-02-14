@@ -14,23 +14,19 @@ class NewMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $h_name;
-    public $f_number;
-    public $b_number;
     public $b_message;
     public $channel_name;
+    public $request;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($channel_name, $h_name, $f_number, $b_number, $b_message)
+    public function __construct($channel_name,$request, $b_message)
     {
-        $this->h_name = $h_name;
-        $this->f_number = $f_number;
-        $this->b_number = $b_number;
         $this->b_message = $b_message;
         $this->channel_name = $channel_name;
+        $this->request = $request;
     }
 
     /**

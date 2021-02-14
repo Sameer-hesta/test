@@ -1920,47 +1920,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var userId = document.querySelector("meta[name='user-id']").getAttribute('content');
     console.log("user", userId);
     Echo.channel('home' + userId).listen('NewMessage', function (e) {
-      console.log(e);
+      console.log("Req=>", e.request.bno ? e.request.bno : '');
       var container = document.getElementById('accordion');
       var card = document.createElement('div');
       card.classList = 'card-body'; // Construct card content
 
-      var content = "\n                    <div id=\"card-".concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">                        \n                        <div class=\"card\">\n                            <div class=\"card-header\" id=\"card-deader-").concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">Patient Calling</div>\n                            <h1> ").concat(e.b_message, " </h1>\n                        </div>\n                        </br>\n                    </div>\n                "); // Append newyly created card element to the container
+      var content = "\n                    <div class=\"col-md-3\" id=\"card-".concat(e.request.hna, "-").concat(e.request.fno).concat(e.request.rno ? e.request.rno : '').concat(e.request.r_type ? e.request.r_type : '').concat(e.request.bno ? e.request.bno : '').concat(e.request.b_type ? e.request.b_type : '', "\">                        \n                        <div class=\"card\">\n                            <div class=\"card-header\" id=\"card-header-").concat(e.request.hna, "-").concat(e.request.fno).concat(e.request.rno ? e.request.rno : '').concat(e.request.r_type ? e.request.r_type : '').concat(e.request.bno ? e.request.bno : '').concat(e.request.b_type ? e.request.b_type : '', "\">Patient Calling</div>\n                            <h1> ").concat(e.b_message, " </h1>\n                        </div>\n                        </br>\n                    </div>\n                "); // Append newyly created card element to the container
 
       container.innerHTML += content;
       var x = document.getElementById("myAudio");
-      console.log("X =>", x.paused);
+      console.log("X =>", x);
       x.addEventListener('ended', function () {
-        this.currentTime = 0;
+        this.currentTime = 1;
+        this.volume = 1;
         this.play();
       }, false);
       x.play();
-      console.log(e.b_number, 'joined', x.played);
+      console.log(e.request.fno, 'joined', x);
     });
     Echo.channel('home' + userId).listen('Reset', function (e) {
-      console.log(e.h_name);
-      var myobj = document.getElementById("card-" + e.h_name + "-" + e.f_number + "-" + e.b_number);
+      var bno = '';
+      var rno = '';
+      var r_type = '';
+      var b_type = '';
+
+      if (e.request.rno != undefined) {
+        rno = e.request.rno;
+      }
+
+      if (e.request.r_type != undefined) {
+        r_type = e.request.r_type;
+      }
+
+      if (e.request.bno != undefined) {
+        bno = e.request.bno;
+      }
+
+      if (e.request.b_type != undefined) {
+        b_type = e.request.b_type;
+      }
+
+      console.log("Req Can", "card-" + e.request.hna + "-" + e.request.fno + rno + r_type + bno + b_type);
+      var myobj = document.getElementById("card-" + e.request.hna + "-" + e.request.fno + rno + r_type + bno + b_type);
       console.log(myobj);
       myobj.remove();
-      console.log(e.b_number, 'leaved');
+      console.log('leaved');
     });
     Echo.channel('home' + userId).listen('LastLeave', function (e) {
-      console.log(e.h_name);
-      var myobj = document.getElementById("card-" + e.h_name + "-" + e.f_number + "-" + e.b_number);
+      var bno = '';
+      var rno = '';
+      var r_type = '';
+      var b_type = '';
+
+      if (e.request.rno != undefined) {
+        rno = e.request.rno;
+      }
+
+      if (e.request.r_type != undefined) {
+        r_type = e.request.r_type;
+      }
+
+      if (e.request.bno != undefined) {
+        bno = e.request.bno;
+      }
+
+      if (e.request.b_type != undefined) {
+        b_type = e.request.b_type;
+      }
+
+      console.log("Last Can", "card-" + e.request.hna + "-" + e.request.fno + rno + r_type + bno + b_type);
+      var myobj = document.getElementById("card-" + e.request.hna + "-" + e.request.fno + rno + r_type + bno + b_type);
       console.log(myobj);
       myobj.remove();
       var x = document.getElementById("myAudio");
+      console.log("x =>y", x);
       x.pause();
-      console.log(e.b_number, 'Last leaved');
+      console.log(e.request.fno, 'Last leaved');
     });
     Echo.join("home" + userId).here(function (users) {
       console.log("Users =>", users);
@@ -25748,16 +25788,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row justify-content-left" }, [
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("div", { attrs: { id: "accordion" } })
-        ])
-      ]),
+      _c("div", {
+        staticClass: "row justify-content-left",
+        attrs: { id: "accordion" }
+      }),
       _vm._v(" "),
       _c("audio", { attrs: { id: "myAudio" } }, [
-        _c("source", {
-          attrs: { src: "audio.mp3", type: "audio/mpeg", allow: "autoplay" }
-        }),
+        _c("source", { attrs: { src: "audio.mp3", type: "audio/mpeg" } }),
         _vm._v(
           "\n        Your browser does not support the audio element.\n    "
         )
