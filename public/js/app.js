@@ -1934,7 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
       var card = document.createElement('div');
       card.classList = 'card-body'; // Construct card content
 
-      var content = "\n                    <div id=\"card-".concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">                        \n                        <div class=\"card\">\n                            <div class=\"card-header\" id=\"card-deader-").concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">Patient Calling</div>\n                            <h1> Bad No. ").concat(e.b_number, " is Calling...</h1>\n                        </div>\n                        </br>\n                    </div>\n                "); // Append newyly created card element to the container
+      var content = "\n                    <div id=\"card-".concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">                        \n                        <div class=\"card\">\n                            <div class=\"card-header\" id=\"card-deader-").concat(e.h_name, "-").concat(e.f_number, "-").concat(e.b_number, "\">Patient Calling</div>\n                            <h1> ").concat(e.b_message, " </h1>\n                        </div>\n                        </br>\n                    </div>\n                "); // Append newyly created card element to the container
 
       container.innerHTML += content;
       var x = document.getElementById("myAudio");
@@ -25755,7 +25755,9 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("audio", { attrs: { id: "myAudio" } }, [
-        _c("source", { attrs: { src: "audio.mp3", type: "audio/mpeg" } }),
+        _c("source", {
+          attrs: { src: "audio.mp3", type: "audio/mpeg", allow: "autoplay" }
+        }),
         _vm._v(
           "\n        Your browser does not support the audio element.\n    "
         )

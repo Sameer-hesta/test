@@ -28,14 +28,18 @@ class CallController extends Controller
             $h_name = $request->hna;
             $f_number = $request->fno;
             $b_number = $request->bno;
+            $b_type = $request->b_type;
             $r_no = $request->rno;
-            $b_type = $request->b_type??"Bad";
+            $r_type = $request->r_type;
 
-            $b_message = "Bad No ".$request->bno." is calling";
+            $b_message = $r_type.' '.($r_no?$r_no:'').(($r_no?'':' ').$request->bno?$request->bno.' ':'').($b_type?$b_type:'');
+            
             $call = $this->call->where([
                 'h_name' => $h_name,
                 'b_no' => $b_number,
                 'f_no' => $f_number,
+                'r_no' => $r_no,
+                'r_type' => $r_type,
                 'status' => 0
                 ])->latest()->first();
                 
@@ -49,6 +53,8 @@ class CallController extends Controller
                             'r_no' => $r_no,
                             'f_no' => $f_number,
                             'b_type' => $b_type,
+                            'r_no' => $r_no,
+                            'r_type' => $r_type,
                         ]);
                     
                     $channel_name = "home".$user->id;
@@ -94,7 +100,10 @@ class CallController extends Controller
             $h_name = $request->hna;
             $f_number = $request->fno;
             $b_number = $request->bno;
-            $b_message = "Bad No ".$request->bno." is calling";
+            $b_type = $request->b_type;
+            $r_no = $request->rno;
+            $r_type = $request->r_type;
+            $b_message = $r_type.' '.($r_no?$r_no.' ':'').($request->bno?$request->bno.' ':'').($b_type?$b_type:'');
 
             $calls = $this->call->where([
                 'h_name' => $h_name,
@@ -110,6 +119,8 @@ class CallController extends Controller
                         'h_name' => $h_name,
                         'b_no' => $b_number,
                         'f_no' => $f_number,
+                        'r_no' => $r_no,
+                        'r_type' => $r_type,
                     ])->update(['status' => 1]);
                 }
                 
@@ -135,7 +146,7 @@ class CallController extends Controller
             
         }catch(\Exception $e){
             return response()->json([
-                "data" => $e,
+                "data" => $e->getMessage(),
                 "status" => 500,
                 "error" => true,
                 "message" => "Something went wrong"

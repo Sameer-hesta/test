@@ -8,7 +8,7 @@
             </div>
         </div>
         <audio id="myAudio">
-            <source src="audio.mp3" type="audio/mpeg">
+            <source src="audio.mp3" type="audio/mpeg" allow="autoplay">
             Your browser does not support the audio element.
         </audio>
     </div>
@@ -32,7 +32,7 @@
                         <div id="card-${e.h_name}-${e.f_number}-${e.b_number}">                        
                             <div class="card">
                                 <div class="card-header" id="card-deader-${e.h_name}-${e.f_number}-${e.b_number}">Patient Calling</div>
-                                <h1> Bad No. ${e.b_number} is Calling...</h1>
+                                <h1> ${e.b_message} </h1>
                             </div>
                             </br>
                         </div>
