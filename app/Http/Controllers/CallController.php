@@ -41,6 +41,7 @@ class CallController extends Controller
                 'f_no' => $f_number,
                 'r_no' => $r_no,
                 'r_type' => $r_type,
+                'b_type' => $b_type,
                 'status' => 0
                 ])->latest()->first();
                 
@@ -123,6 +124,7 @@ class CallController extends Controller
                         'f_no' => $f_number,
                         'r_no' => $r_no,
                         'r_type' => $r_type,
+                        'b_type' => $b_type,
                     ])->update(['status' => 1]);
                 }
                 
