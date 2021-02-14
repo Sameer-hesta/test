@@ -40,7 +40,7 @@
                     var x = document.getElementById("myAudio");
                     console.log("X =>",x);
                     x.addEventListener('ended', function() {
-                        this.currentTime = 1;
+                        this.currentTime = 0;
                         this.volume = 1;
                         this.play();
                     }, false);
