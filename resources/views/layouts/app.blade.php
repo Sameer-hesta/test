@@ -27,7 +27,9 @@
                     {{ config('app.name', 'Hayat-NCS') }}
                 </a>
                 <div style="margin-left:350px; color:#39e600;">
+                    @if(Auth::user())
                     <h1>{{ Auth::user()->name }}</h1>
+                    @endif
                 </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
