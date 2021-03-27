@@ -26,9 +26,8 @@
                     // Construct card content
                     const content = `
                         <div class="col-md-3" id="card-${e.request.hna}-${e.request.fno}${e.request.rno?e.request.rno:''}${e.request.r_type?e.request.r_type:''}${e.request.bno?e.request.bno:''}${e.request.b_type?e.request.b_type:''}">                        
-                            <div class="card">
-                                <div class="card-header" id="card-header-${e.request.hna}-${e.request.fno}${e.request.rno?e.request.rno:''}${e.request.r_type?e.request.r_type:''}${e.request.bno?e.request.bno:''}${e.request.b_type?e.request.b_type:''}">Patient Calling</div>
-                                <h1> ${e.b_message} </h1>
+                            <div class="card" style="color:black">
+                                <div class="card-header" id="card-header-${e.request.hna}-${e.request.fno}${e.request.rno?e.request.rno:''}${e.request.r_type?e.request.r_type:''}${e.request.bno?e.request.bno:''}${e.request.b_type?e.request.b_type:''}"><h2> ${e.b_message} </h></div>
                             </div>
                             </br>
                         </div>
