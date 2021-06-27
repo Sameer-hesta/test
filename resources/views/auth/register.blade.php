@@ -82,13 +82,36 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
+                            <label for="tracks" class="col-md-4 col-form-label text-md-right">{{ __('Tracks') }}</label>
+                                <?php 
+                                    $path = public_path('tracks');
+                                    $files = File::files($path);
+                                    $tracks = [];
+                                    foreach ($files as $key => $file) {
+                                        $tracks[$key] = $file->getRelativePathname();
+                                        // dd($file->getRelativePathname());
+                                    }
+                                ?>
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <select class="browser-default custom-select" name="audio">
+                                    <option value="audio.mp3" selected>Select the track</option>
+                                    @foreach($tracks as $track)
+                                    <option value="{{$track}}">{{$track}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="is_master" id="is_master" {{ old('is_master') ? 'checked' : '' }}>
 
+                                    <label class="form-check-label" for="is_master">
+                                        {{ __('create user with master control') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

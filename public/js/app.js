@@ -1916,10 +1916,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var userId = document.querySelector("meta[name='user-id']").getAttribute('content');
@@ -25791,14 +25787,7 @@ var staticRenderFns = [
       _c("div", {
         staticClass: "row justify-content-left",
         attrs: { id: "accordion" }
-      }),
-      _vm._v(" "),
-      _c("audio", { attrs: { id: "myAudio" } }, [
-        _c("source", { attrs: { src: "audio.mp3", type: "audio/mpeg" } }),
-        _vm._v(
-          "\n        Your browser does not support the audio element.\n    "
-        )
-      ])
+      })
     ])
   }
 ]

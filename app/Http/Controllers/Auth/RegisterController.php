@@ -52,11 +52,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
             'h_name' => ['required', 'alpha_dash']
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -66,11 +65,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'h_name'  => $data['h_name'],
-            'f_no'  => $data['f_no'],
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'h_name'    => $data['h_name'],
+            'f_no'      => $data['f_no'],
+            'user_type' => array_key_exists('is_master', $data)?1:0,
+            'audio'     => array_key_exists('audio', $data)?$data['audio']:'audio.mp3' 
         ]);
     }
 }

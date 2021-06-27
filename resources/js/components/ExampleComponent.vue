@@ -3,10 +3,6 @@
         <div class="row justify-content-left" id="accordion">
             
         </div>
-        <audio id="myAudio">
-            <source src="audio.mp3" type="audio/mpeg" >
-            Your browser does not support the audio element.
-        </audio>
     </div>
 </template>
 
