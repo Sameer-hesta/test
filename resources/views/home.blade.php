@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link href="{{ asset('css/style.css') }}" rel="stylesheet"> 
 @section('content')
 <meta name="user-id" content="{{ Auth::user()->id }}">
 <div class="container-fluid">
