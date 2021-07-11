@@ -1,6 +1,6 @@
 @extends('layouts.app')
-<link href="{{ asset('css/style.css') }}" rel="stylesheet"> 
 @section('content')
+<link href="{{ asset('css/style.css') }}" rel="stylesheet"> 
 <meta name="user-id" content="{{ Auth::user()->id }}">
 <div class="container-fluid">
     <div class="row justify-content-center">
